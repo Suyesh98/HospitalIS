@@ -5,11 +5,16 @@ import com.hospitalIS.model.HospitalISModel;
 import com.hospitallIS.controller.algorithms.InsertionSort;
 import com.hospitallIS.controller.algorithms.MergeSort;
 import com.hospitallIS.controller.algorithms.SelectionSort;
+import com.hospitallIS.controller.algorithms.BinarySearch;
 import com.hospitalIS.util.ValidationUtil;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +35,7 @@ public class HospitalIS extends javax.swing.JFrame {
     * 2. Disables window resizing to ensure a consistent user interface layout.
     * 3. Initializes UI components and utility classes necessary for the application's functionality.
     * 4. Configures the layout management using CardLayout and adds screens for navigation.
-    * 5. Populates initial data for the system, including patient or student information and table content.
+    * 5. Populates initial data for the system, including patient or patient information and table content.
     * 6. Starts a progress indicator to display a loading screen and manage initial processing.
     */
 
@@ -40,7 +45,7 @@ public class HospitalIS extends javax.swing.JFrame {
         initComponents();
         validationUtil = new ValidationUtil();
         initializeLayout(); // Set up CardLayout and add screens
-        initializeData(); // Initialize student data and table
+        initializeData(); // Initialize patient data and table
         startProgress(); // Show loading screen and initiate progress       
     }
 
@@ -94,6 +99,8 @@ public class HospitalIS extends javax.swing.JFrame {
         btnSort = new javax.swing.JButton();
         cmbSortBy = new javax.swing.JComboBox<>();
         cmbSelectionSortingOrder = new javax.swing.JComboBox<>();
+        txtSearchValue = new javax.swing.JTextField();
+        btnSearching = new javax.swing.JButton();
         pnlAboutUS = new javax.swing.JPanel();
         lblHeading = new javax.swing.JLabel();
         lblConnectUs = new javax.swing.JLabel();
@@ -359,6 +366,22 @@ public class HospitalIS extends javax.swing.JFrame {
             }
         });
 
+        txtSearchValue.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enter a value", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        txtSearchValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchValueActionPerformed(evt);
+            }
+        });
+
+        btnSearching.setBackground(new java.awt.Color(255, 153, 153));
+        btnSearching.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearching.setText("Search");
+        btnSearching.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
@@ -400,11 +423,21 @@ public class HospitalIS extends javax.swing.JFrame {
                                 .addGap(68, 68, 68)
                                 .addComponent(cmbSelectionSortingOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearching, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102))
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdminLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearching, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addComponent(spTblStudent1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +475,7 @@ public class HospitalIS extends javax.swing.JFrame {
                             .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("AdminControl", pnlAdmin);
@@ -850,7 +883,6 @@ public class HospitalIS extends javax.swing.JFrame {
         ValidationUtil.isValidPatientName(patientName, lblError) &&
         ValidationUtil.isValidContact(contact, lblError) &&
         ValidationUtil.isValidAge(age, lblError)) {
-
         try {
             // Convert patientId and age from String to int
             int patientIdValue = Integer.parseInt(patientId); // Convert patientId from String to int
@@ -873,7 +905,6 @@ public class HospitalIS extends javax.swing.JFrame {
             // Show a success message dialog
             JOptionPane.showMessageDialog(this, "Your data has been successfully updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
-
         } catch (NumberFormatException e) {
             // If the conversion fails, show an error message
             JOptionPane.showMessageDialog(this, "Invalid input: Patient ID and Age must be numbers.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -921,7 +952,7 @@ public class HospitalIS extends javax.swing.JFrame {
             tblPatientList.setValueAt(contact, selectedRow, 5); // Update Contact
             tblPatientList.setValueAt(department, selectedRow, 6); // Update Department
 
-            // Update the student list (or your data source)
+            // Update the patient list (or your data source)
             HospitalISModel updatedPatient = new HospitalISModel(
                 Integer.parseInt(patientId), // Convert Patient ID to int
                 patientName,
@@ -1009,12 +1040,12 @@ public class HospitalIS extends javax.swing.JFrame {
     private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
         // TODO add your handling code here:
         // Retrieve the selected field and sorting order from combo boxes
-    String selectedField = cmbSortBy.getSelectedItem().toString();  // For selecting Drone ID, ItemName, or Location
+    String selectedField = cmbSortBy.getSelectedItem().toString();  // For selecting patient ID, ItemName, or Location
     String selectedOrder = cmbSelectionSortingOrder.getSelectedItem().toString();  // For selecting Ascending/Descending
 
     // Check if a valid field is selected
     if (selectedField.equals("Select Field")) {
-        JOptionPane.showMessageDialog(this, "Please select a valid field for sorting (Drone ID, ItemName, or Location).", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please select a valid field for sorting (Patient ID, ItemName, or Location).", "Error", JOptionPane.ERROR_MESSAGE);
         return; // Exit if no field is selected
     }
 
@@ -1055,9 +1086,81 @@ public class HospitalIS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSelectionSortingOrderActionPerformed
 
-        private void loadListToTable(List<HospitalISModel>patientList){
+    private void btnSearchingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchingActionPerformed
+        // TODO add your handling code here:
+        // Get user inputs
+        String searchValue = txtSearchValue.getText().trim();
+        String selectedColumn = "Patient ID";
+
+        // Validate input
+        if (searchValue.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter a value to search.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        BinarySearch binarySearch = new BinarySearch();
+        // Sort the patient list based on the selected column
+        sortPatientList(selectedColumn);
+
+        // Perform binary search
+        HospitalISModel result = binarySearch.searchByField(searchValue, selectedColumn, patientList, 0, patientList.size() - 1);
+
+        // Display result
+        showSearchResult(result);
+    }//GEN-LAST:event_btnSearchingActionPerformed
+
+    private void txtSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchValueActionPerformed
+
+     private void sortPatientList(String selectedColumn) {
+        // Sorting based on selected column
+
+            
+        SelectionSort selectionSort = new SelectionSort();
+        if (selectedColumn.equals("Patient ID")) {
+            // Sort in Ascending order
+            boolean isDesc = false;
+            // Sort the patientList using SelectionSort
+            patientList = selectionSort.sortByPatientId(patientList, isDesc);
+            
+        } 
+    }
+    
+    
+    // Display search results
+    public void showSearchResult(HospitalISModel result) {
+        if (result == null) {
+            JOptionPane.showMessageDialog(null, "No matching record found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Column names
+        String[] columnNames = {"Patient ID", "Patient Name", "Doctor Name", "Address", "Age", "Contact", "Department"};
+
+        // Data for table
+        Object[][] data = {
+            {result.getPatientId(), result.getPatientName(), result.getDoctorName(), result.getAddress(), result.getAge(), result.getContact(), result.getDepartment()}
+        };
+
+        // Table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(tableModel);
+
+        // Scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(1000, 300));
+
+        // Dialog box
+        JOptionPane optionPane = new JOptionPane(scrollPane, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+        JDialog dialog = optionPane.createDialog(null, "Search Result");
+        dialog.setSize(1000, 300);
+        dialog.setVisible(true);
+    }
+    
+    
+    private void loadListToTable(List<HospitalISModel>patientList){
         DefaultTableModel model=(DefaultTableModel) tblPatientList.getModel();
-        
+
         //clear existing rows if needed
         model.setRowCount(0);
         
@@ -1122,6 +1225,7 @@ public class HospitalIS extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnSearching;
     private javax.swing.JButton btnSort;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbSelectionSortingOrder;
@@ -1184,5 +1288,6 @@ public class HospitalIS extends javax.swing.JFrame {
     private javax.swing.JTextField txtFldLoginUsername;
     private javax.swing.JTextField txtPatientId;
     private javax.swing.JTextField txtPatientName;
+    private javax.swing.JTextField txtSearchValue;
     // End of variables declaration//GEN-END:variables
 }
