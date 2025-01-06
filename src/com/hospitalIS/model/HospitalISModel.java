@@ -6,7 +6,7 @@ package com.hospitalIS.model;
 
 /**
  *
- * @author ASUS
+ * @author Suyesh Neupane
  */
 public class HospitalISModel {
     private String doctorName;

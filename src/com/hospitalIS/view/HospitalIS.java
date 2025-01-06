@@ -2,6 +2,9 @@ package com.hospitalIS.view;
 
 
 import com.hospitalIS.model.HospitalISModel;
+import com.hospitallIS.controller.algorithms.InsertionSort;
+import com.hospitallIS.controller.algorithms.MergeSort;
+import com.hospitallIS.controller.algorithms.SelectionSort;
 import com.hospitalIS.util.ValidationUtil;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -11,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ASUS
+ * @author Suyesh Neupane
  */
 public class HospitalIS extends javax.swing.JFrame {
 
@@ -20,8 +23,17 @@ public class HospitalIS extends javax.swing.JFrame {
     private final ValidationUtil validationUtil;
 
     /**
-     * Creates new form CollegeApp
-     */
+    * Default constructor for the HospitalIS class.
+    * 
+    * This constructor performs the following tasks:
+    * 1. Sets the initial location of the application window.
+    * 2. Disables window resizing to ensure a consistent user interface layout.
+    * 3. Initializes UI components and utility classes necessary for the application's functionality.
+    * 4. Configures the layout management using CardLayout and adds screens for navigation.
+    * 5. Populates initial data for the system, including patient or student information and table content.
+    * 6. Starts a progress indicator to display a loading screen and manage initial processing.
+    */
+
     public HospitalIS() {
         setLocation(100,10);
         setResizable(false);
@@ -79,6 +91,9 @@ public class HospitalIS extends javax.swing.JFrame {
         txtAge = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
+        btnSort = new javax.swing.JButton();
+        cmbSortBy = new javax.swing.JComboBox<>();
+        cmbSelectionSortingOrder = new javax.swing.JComboBox<>();
         pnlAboutUS = new javax.swing.JPanel();
         lblHeading = new javax.swing.JLabel();
         lblConnectUs = new javax.swing.JLabel();
@@ -319,6 +334,31 @@ public class HospitalIS extends javax.swing.JFrame {
             }
         });
 
+        btnSort.setBackground(new java.awt.Color(255, 153, 153));
+        btnSort.setForeground(new java.awt.Color(255, 255, 255));
+        btnSort.setText("Sort");
+        btnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortActionPerformed(evt);
+            }
+        });
+
+        cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Patient ID", "Patient Name", "Doctor Name" }));
+        cmbSortBy.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sort By", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        cmbSortBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSortByActionPerformed(evt);
+            }
+        });
+
+        cmbSelectionSortingOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
+        cmbSelectionSortingOrder.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select Sorting Order", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        cmbSelectionSortingOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSelectionSortingOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
@@ -331,30 +371,35 @@ public class HospitalIS extends javax.swing.JFrame {
                         .addGap(78, 78, 78))
                     .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlAdminLayout.createSequentialGroup()
-                                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36)
-                                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
+                        .addGap(36, 36, 36)
+                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70)
                         .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAdminLayout.createSequentialGroup()
                                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(81, 81, 81)
+                                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDoctorName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtContact, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(161, 161, 161))
+                            .addGroup(pnlAdminLayout.createSequentialGroup()
+                                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68)
+                                .addComponent(cmbSelectionSortingOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30))))))
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,26 +411,38 @@ public class HospitalIS extends javax.swing.JFrame {
                     .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48))
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)))
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlAdminLayout.createSequentialGroup()
+                                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36))
+                            .addGroup(pnlAdminLayout.createSequentialGroup()
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cmbSortBy, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                        .addComponent(cmbSelectionSortingOrder))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("AdminControl", pnlAdmin);
@@ -632,8 +689,8 @@ public class HospitalIS extends javax.swing.JFrame {
     }
 
     /**
-     * Initializes the application's data, including the student list and table.
-     * Populates the student list with sample data for demonstration purposes.
+     * Initializes the application's data, including the patient list and table.
+     * Populates the patient list with sample data for demonstration purposes.
      */
     private void initializeData() {
         patientList = new LinkedList<>();
@@ -652,6 +709,12 @@ public class HospitalIS extends javax.swing.JFrame {
     // Correct order according to your constructor (patientId first)
     registerPatient(new HospitalISModel(10001, "John Doe", "Dr Suyesh", "Pokhara", 20, "9803729956", "Cardiology"));
     registerPatient(new HospitalISModel(10002, "Alice Johnson", "Dr Snehal", "Kathmandu", 25, "9876543211", "Neurology"));
+    registerPatient(new HospitalISModel(10003, "Robert Smith", "Dr Pratik", "Biratnagar", 30, "9801234567", "Orthopedics"));
+    registerPatient(new HospitalISModel(10004, "Emily Davis", "Dr Sushant", "Butwal", 35, "9812345678", "Pediatrics"));
+    registerPatient(new HospitalISModel(10005, "Michael Brown", "Dr Aayush", "Chitwan", 40, "9823456789", "Oncology"));
+    registerPatient(new HospitalISModel(10006, "Jessica Wilson", "Dr Namita", "Dharan", 28, "9834567890", "Dermatology"));
+    registerPatient(new HospitalISModel(10007, "David Martinez", "Dr Ramesh", "Lalitpur", 50, "9845678901", "Gastroenterology"));
+
     }
 
     /**
@@ -684,11 +747,11 @@ public class HospitalIS extends javax.swing.JFrame {
         worker.execute(); // Start the worker thread
     }
 
-    // Method to add student data and populate the table
+    // Method to add patient data and populate the table
     private void registerPatient(HospitalISModel patient) {
-        patientList.add(patient); // Assuming studentList is a list holding the patient data
+        patientList.add(patient); // Assuming patientList is a list holding the patient data
 
-    // Assuming tblStudent is your JTable for patients
+    // Assuming tblPatientList is your JTable for patients
     DefaultTableModel model = (DefaultTableModel) tblPatientList.getModel();
 
     // Adding a new row to the table with the PatientID in the first column, followed by PatientName, then DoctorName
@@ -703,25 +766,7 @@ public class HospitalIS extends javax.swing.JFrame {
     });
     }
 
-//    private Boolean updateStudent(StudentModel student){
-//        
-//    }
-//    
-//    private Boolean deleteStudent(int lmuId){
-//        
-//    }
-//
-//    private StudentModel createStudentModel(......){
-//        
-//    }
-//    
-//    private void clearForm(){
-//        
-//    }
-//    
-//    private void loadStudentListToTable(){
-//        
-//    }
+
     /**
      * Switches the application screen to the specified screen name.
      *
@@ -776,7 +821,7 @@ public class HospitalIS extends javax.swing.JFrame {
 
     
     private boolean isPatientIdExists(int patientId) {
-    // Replace 'droneList' with the actual list or database storing drone data
+    // Replace 'patientList' with the actual list or database storing patient data
     for (HospitalISModel hospital : patientList) { 
         if (hospital.getPatientId() == patientId) {
             return true; // Patient ID already exists
@@ -819,7 +864,7 @@ public class HospitalIS extends javax.swing.JFrame {
             int ageValue = Integer.parseInt(age); // Convert age from String to int
 
             lblError.setText("");
-            // Create a new instance of your model class (StudentModel)
+            // Create a new instance of your model class (HospitalISModel)
             HospitalISModel patient = new HospitalISModel(patientIdValue, patientName, doctorName, address, ageValue, contact, department);
 
             // Call your method to register or update the patient (e.g., registerPatient or savePatient)
@@ -900,42 +945,22 @@ public class HospitalIS extends javax.swing.JFrame {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-        try {
-        // Get the Patient ID from the text field
-        int patientIdToRemove = Integer.parseInt(txtPatientId.getText()); // Assuming txtPatientId is the text field for Patient ID
-        lblError.setText("");
-        DefaultTableModel model = (DefaultTableModel) tblPatientList.getModel(); // Get the table model
+        int selectedRow = tblPatientList.getSelectedRow(); // Get selected row
 
-        boolean patientFound = false; // Flag to check if the patient ID exists in the table
+        if (selectedRow != -1) { // Check if a row is selected
+            // Remove data from the patientList
+            patientList.remove(selectedRow);
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            // Get the Patient ID from the table and convert it to Integer
-            Object patientIdObj = model.getValueAt(i, 0); // Assuming Patient ID is in the first column
-            int patientIdInTable = 0;
-            
-            // Check if the value is an instance of Integer or String and convert accordingly
-            if (patientIdObj instanceof Integer) {
-                patientIdInTable = (int) patientIdObj;
-            } else if (patientIdObj instanceof String) {
-                patientIdInTable = Integer.parseInt((String) patientIdObj); // Convert String to int if needed
-            }
+            // Remove data from the table
+            DefaultTableModel model = (DefaultTableModel) tblPatientList.getModel();
+            model.removeRow(selectedRow);
 
-            if (patientIdInTable == patientIdToRemove) {
-                model.removeRow(i); // Remove the row from the table
-                patientFound = true; // Mark patient as found
-                break; // Exit the loop once the row is found and removed
-            }
+            lblError.setText("Patient removed successfully.");
+            lblError.setForeground(Color.BLUE);
+        } else {
+            lblError.setText("No Patient selected for removal!");
+            lblError.setForeground(Color.RED);
         }
-
-        // Show a message if the patient was not found
-        if (!patientFound) {
-            JOptionPane.showMessageDialog(this, "Patient ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (NumberFormatException e) {
-        // Handle invalid input (non-numeric Patient ID)
-        JOptionPane.showMessageDialog(this, "Invalid Patient ID. Please enter a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -981,6 +1006,78 @@ public class HospitalIS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDepartmentActionPerformed
 
+    private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
+        // TODO add your handling code here:
+        // Retrieve the selected field and sorting order from combo boxes
+    String selectedField = cmbSortBy.getSelectedItem().toString();  // For selecting Drone ID, ItemName, or Location
+    String selectedOrder = cmbSelectionSortingOrder.getSelectedItem().toString();  // For selecting Ascending/Descending
+
+    // Check if a valid field is selected
+    if (selectedField.equals("Select Field")) {
+        JOptionPane.showMessageDialog(this, "Please select a valid field for sorting (Drone ID, ItemName, or Location).", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Exit if no field is selected
+    }
+
+    // Determine the sort order: true for descending, false for ascending
+    boolean isDesc = selectedOrder.equals("Descending");
+
+    // Initialize the sorted list variable
+    List<HospitalISModel> sortedList = null;
+
+    // Sort the data based on the selected field
+    if (selectedField.equals("Patient ID")) {
+        // Use SelectionSort for Patient ID
+        SelectionSort selectionSort = new SelectionSort();
+        sortedList = selectionSort.sortByPatientId(this.patientList, isDesc);
+    } else if (selectedField.equals("Patient Name")) {
+        // Use InsertionSort for DoctorName
+        InsertionSort insertionSort = new InsertionSort();
+        sortedList = insertionSort.sortByPatientName(patientList, isDesc);
+    } else if (selectedField.equals("Doctor Name")) {
+        // Use MergeSort for DoctorName
+        MergeSort mergeSort = new MergeSort();
+        sortedList = mergeSort.sortByDoctorName(patientList, isDesc);
+    }
+
+    // Check if sortedList is not null before loading it into the table
+    if (sortedList != null && !sortedList.isEmpty()) {
+        loadListToTable(sortedList);
+    } else {
+        JOptionPane.showMessageDialog(this, "No data available for sorting.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnSortActionPerformed
+
+    private void cmbSortByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSortByActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSortByActionPerformed
+
+    private void cmbSelectionSortingOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectionSortingOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSelectionSortingOrderActionPerformed
+
+        private void loadListToTable(List<HospitalISModel>patientList){
+        DefaultTableModel model=(DefaultTableModel) tblPatientList.getModel();
+        
+        //clear existing rows if needed
+        model.setRowCount(0);
+        
+        //populate the table with patient data
+        patientList.forEach(patient-> model.addRow(new Object[]{
+        patient.getPatientId(),
+        patient.getPatientName(),
+        patient.getDoctorName(),
+        patient.getAddress(),
+        patient.getAge(),
+        patient.getContact(),
+        patient.getDepartment(),
+    }));
+    }
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1025,7 +1122,10 @@ public class HospitalIS extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnSort;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cmbSelectionSortingOrder;
+    private javax.swing.JComboBox<String> cmbSortBy;
     private javax.swing.JLabel lblAboutImage;
     private javax.swing.JLabel lblAppointment;
     private javax.swing.JLabel lblCompanyLogo;

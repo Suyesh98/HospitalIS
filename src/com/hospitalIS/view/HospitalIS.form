@@ -397,40 +397,44 @@
                                   <Component id="spTblStudent1" pref="973" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="btnAdd" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                              <Component id="btnUpdate" min="-2" pref="116" max="-2" attributes="0"/>
-                                              <Component id="btnRemove" min="-2" pref="116" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtAge" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <Component id="txtPatientId" min="-2" pref="150" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="btnAdd" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
+                                      <Component id="btnUpdate" min="-2" pref="116" max="-2" attributes="0"/>
+                                      <Component id="btnRemove" min="-2" pref="116" max="-2" attributes="0"/>
                                       <Component id="btnClear" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtPatientId" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="txtAddress" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="txtDepartment" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="txtAge" min="-2" pref="150" max="-2" attributes="0"/>
                                               <Component id="txtPatientName" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <Component id="txtContact" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtDoctorName" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <Component id="txtDepartment" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtDoctorName" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="txtContact" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="btnSort" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="lblError" alignment="1" min="-2" pref="342" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="lblError" min="-2" pref="222" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="cmbSortBy" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                          <Component id="cmbSelectionSortingOrder" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="txtAddress" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -446,33 +450,52 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtPatientId" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPatientName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtDoctorName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="btnAdd" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtAge" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtContact" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnUpdate" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnRemove" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtAddress" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtAge" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnUpdate" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnRemove" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                  <Component id="btnSort" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblError" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="btnClear" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cmbSortBy" pref="68" max="32767" attributes="0"/>
+                                  <Component id="cmbSelectionSortingOrder" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblError" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="btnClear" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Component id="txtDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="64" max="32767" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -691,6 +714,61 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblError">
+                </Component>
+                <Component class="javax.swing.JButton" name="btnSort">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="99" green="99" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Sort"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSortActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cmbSortBy">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Patient ID"/>
+                        <StringItem index="1" value="Patient Name"/>
+                        <StringItem index="2" value="Doctor Name"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder justification="2" title="Sort By"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbSortByActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cmbSelectionSortingOrder">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="2">
+                        <StringItem index="0" value="Ascending"/>
+                        <StringItem index="1" value="Descending"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="javax.swing.BorderFactory.createTitledBorder(null, &quot;Select Sorting Order&quot;, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION)" type="code"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbSelectionSortingOrderActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

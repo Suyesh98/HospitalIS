@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
 
+/**
+ *
+ * @author Suyesh Neupane
+ */
+
 public class ValidationUtil {
 
     // Regular expressions for validation
