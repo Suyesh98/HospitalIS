@@ -903,7 +903,7 @@ public class HospitalIS extends javax.swing.JFrame {
             registerPatient(patient);
 
             // Show a success message dialog
-            JOptionPane.showMessageDialog(this, "Your data has been successfully updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Your data has been successfully added.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException e) {
             // If the conversion fails, show an error message

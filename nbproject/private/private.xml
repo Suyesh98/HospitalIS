@@ -6,7 +6,10 @@
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitalIS/util/ValidationUtil.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitalIS/view/HospitalIS.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitalIS/model/HospitalISModel.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitallIS/controller/algorithms/SelectionSort.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitallIS/controller/algorithms/InsertionSort.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitallIS/controller/algorithms/BinarySearch.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/HospitalIS%20DSA/src/com/hospitallIS/controller/algorithms/MergeSort.java</file>
         </group>
     </open-files>
 </project-private>

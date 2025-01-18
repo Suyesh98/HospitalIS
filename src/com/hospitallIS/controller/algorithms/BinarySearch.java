@@ -56,22 +56,22 @@ public class BinarySearch {
     }
 
     // Helper method to fetch value based on selected column
-    private String getFieldValue(HospitalISModel drone, String columnName) {
+    private String getFieldValue(HospitalISModel hospital, String columnName) {
         switch (columnName) {
             case "Patient ID":
-                return String.valueOf(drone.getPatientId()); // Convert integer to string
+                return String.valueOf(hospital.getPatientId()); // Convert integer to string
             case "Patient Name":
-                return drone.getPatientName();
+                return hospital.getPatientName();
             case "Doctor Name":
-                return drone.getDoctorName();
+                return hospital.getDoctorName();
             case "Address":
-                return drone.getAddress();
+                return hospital.getAddress();
             case "Age":
-                return String.valueOf(drone.getAge());
+                return String.valueOf(hospital.getAge());
             case "Contact":
-                return drone.getContact();
+                return hospital.getContact();
             case "Department":
-                return drone.getDepartment();
+                return hospital.getDepartment();
             default:
                 return ""; // Default case for unsupported columns
         }

@@ -39,7 +39,7 @@ public class InsertionSort {
             HospitalISModel currentPatient = hospitalSortList.get(i);
             int j = i - 1;
 
-            // Move elements that are greater than currentDrone (or less, based on order)
+            // Move elements that are greater than currenthospital (or less, based on order)
             while (j >= 0 && shouldSwap(currentPatient.getPatientName(), hospitalSortList.get(j).getPatientName(), isDesc)) {
                 hospitalSortList.set(j + 1, hospitalSortList.get(j));
                 j = j - 1;
